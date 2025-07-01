@@ -16,10 +16,16 @@ h1, h2, h3, h4, h5, h6 {
     margin: 0;
 }
 
+/*Page*/
+.page {
+    overflow: hidden; /*чтобы не было горизонтального скролла на телефонах*/
+}
+
 /*container*/
 .container {
     width: 100%;
-    max-width: 1200px;
+    max-width: 1230px; /*было 1200, но мы прибавляем два раза по 15 от пэддинга*/
+    padding: 0 15px;
     margin: 0 auto;
 }
 
@@ -34,6 +40,21 @@ h1, h2, h3, h4, h5, h6 {
     right: 0;
     z-index: 1000;
     padding-top: 30px;
+}
+
+.header.fixed {
+    background-color: #eb8b8d;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+
+    transform: translate3d(0,0,0); /*чтобы меню не дергалось при скролле*/
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+}
+
+.header.active {
+    background-color: #eb8b8d;
 }
 
 .header-inner {
@@ -96,6 +117,79 @@ h1, h2, h3, h4, h5, h6 {
     color: #fce38a;
 }
 
+/*Nav Toggle*/
+.nav-toggle {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    z-index: 1;
+    width: 30px;
+    padding: 10px 0;
+    font-size: 0px;
+    color: transparent; /*этой и прошлой строкой скрываем слово menu */
+    border: 0;
+    background: none;
+    cursor: pointer;
+
+    display: none;
+}
+
+.nav-toggle.active .nav-toggle-item {
+    background: none;
+}
+
+
+
+.nav-toggle-item {
+    width: 100%;
+    height: 3px;
+    display: block;
+    background-color: #fff;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+
+    transition: background .2s linear;
+
+}
+
+.nav-toggle-item:before,
+.nav-toggle-item:after {
+    content: "";
+    width: 100%;
+    height: 3px;
+    position: absolute;
+    background-color: #fff;
+    left: 0;
+    z-index: 1;
+
+    transition: transform .2s linear;
+}
+
+.nav-toggle-item:before {
+    top: -8px;
+
+}
+
+.nav-toggle-item:after {
+    bottom: -8px;
+}
+
+.nav-toggle.active .nav-toggle-item:before {
+    transform-origin: left top;
+    transform: rotate(45deg) translate3d(0, -2px, 0);
+
+}
+
+.nav-toggle.active .nav-toggle-item:after {
+    transform-origin: left bottom;
+    transform: rotate(-45deg) translate3d(0, 3px, 0);
+
+}
+
 /*intro*/
 .intro {
     width: 100%;
@@ -105,6 +199,8 @@ h1, h2, h3, h4, h5, h6 {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    min-height: 650px;
+    position: relative;
 }
 
 .intro-title {
@@ -211,6 +307,7 @@ h1, h2, h3, h4, h5, h6 {
 /*section*/
 .section {
     padding: 80px 0;
+
 }
 
 .section-header {
@@ -250,12 +347,14 @@ h1, h2, h3, h4, h5, h6 {
 
 .card {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
-    margin-top: 80px;
+    margin: 80px -15px;
 }
 
 .card-item {
-    width: 380px;
+    width: 33.3333%;
+    padding: 0 15px;
     position: relative;
 }
 
@@ -279,6 +378,8 @@ h1, h2, h3, h4, h5, h6 {
 .card-image img {
     transition: opacity .1s linear;
     display: block;
+    max-width: 100%;
+    height: auto;
 
 }
 
@@ -306,6 +407,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .stat {
     display: flex;
+    flex-wrap: wrap;
 }
 
 .stat-item {
@@ -337,14 +439,20 @@ h1, h2, h3, h4, h5, h6 {
 /*Services*/
 .services {
     display: flex;
+    flex-wrap: wrap;
 
 }
 
 .services-item {
-    flex: 1 1 0;
-    padding-left: 85px;
-    padding-right: 35px;
+    width: 33.33333%;
+
+    padding: 0 35px 40px 85px;
     position:  relative;
+    margin-bottom: 40px;
+}
+
+.services-item-border {
+    border-bottom: 1px solid #e5e5e5;
 }
 
 .services-icon {
@@ -390,11 +498,13 @@ hr {
     max-width: 600px;
     margin: 0 auto;
     position: relative;
+
 }
 
 .devices-item {
     display: block;
-
+    max-width: 100%;
+    height: auto;
 }
 
 .devices-item-iphone {
@@ -402,17 +512,26 @@ hr {
     bottom: -80px;
     right: 0;
     z-index: 1;
+
 }
 
 /*we do*/
 
 .wedo {
     display: flex;
+    margin: 0 -15px;
+    flex-wrap: wrap;
+}
+
+.wedo-img {
+    max-width: 100%;
+    height: auto;
+    display: block;
 }
 
 .wedo-item {
     width: 50%;
-
+    padding: 0 15px;
 }
 
 /*accordion*/
@@ -501,6 +620,9 @@ hr {
 }
 
 .reviews-photo {
+    display: block;
+    width: 210px;
+    height: 210px;
     position: absolute;
     top: 0;
     left: 0;
@@ -629,6 +751,17 @@ hr {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin: 0 -15px;
+}
+
+.logos-item {
+    padding: 0 15px;
+}
+
+.logos-img {
+    display: block;
+    max-width: 100%;
+    height: auto;
 }
 
 /*Works*/
@@ -755,6 +888,7 @@ hr {
 
 .blog {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
 
 }
@@ -885,6 +1019,18 @@ hr {
     padding-top: 65px;
 }
 
+.footer-inner {
+    padding-bottom: 65px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 0 -15px;
+}
+
+.footer-col {
+    padding: 0 15px;
+}
+
 .footer-col-1 {
     width: 40%;
 }
@@ -940,11 +1086,7 @@ hr {
     vertical-align: middle;
 }
 
-.footer-inner {
-    padding-bottom: 65px;
-    display: flex;
-    justify-content: space-between;
-}
+
 
 .footer-title {
     text-transform: uppercase;
@@ -977,7 +1119,7 @@ hr {
     line-height: 1.1;
 }
 
-.subscribe-input:placeholder {
+.subscribe-input::placeholder {
     color: #ccc;
 }
 
@@ -1059,13 +1201,15 @@ hr {
 }
 
 .instagram-item {
-    width: 32.33333%;
+    width: 33%;
     border-bottom: 1px solid #fff;
 
 }
 
 .instagram-item img {
     display: block;
+    max-width: 100%; /*эта и след строчка для того, чтобы картинки пропорционально уменьшались*/
+    height: auto;
 }
 
 /*copyright*/
@@ -1080,3 +1224,425 @@ hr {
 .copyright span {
     color: #f38181;
 }
+
+
+/*monitor*/
+@media (max-width: 1200px) {
+    /*Intro*/
+    .intro-title {
+        font-size: 120px;
+    }
+
+    .intro-suptitle {
+        font-size: 52px;
+    }
+
+    /*Reviews*/
+    .reviews-text {
+        font-size: 20px;
+    }
+
+} /*end of media monitor*/
+
+/*laptop*/
+@media (max-width: 990px) {
+    /*Intro*/
+    .intro-title {
+        font-size: 80px;
+    }
+
+    .intro-suptitle {
+        font-size: 32px;
+    }
+
+    /*Stat*/
+
+    .stat {
+        justify-content: center;
+    }
+
+    .stat-item {
+        flex: none;
+        width: 33.333%;
+        border: 0;
+        padding-top: 30px;
+        padding-bottom: 30px;
+    }
+
+    .stat-item:last-child {
+        border-right: 0;
+    }
+
+        /*section*/
+
+    .section-header {
+        margin-bottom: 50px;
+    }
+
+    .section-title {
+        font-size: 24px;
+    }
+
+    .section-suptitle {
+        font-size: 20px;
+    }
+
+    .section-title:after {
+        margin: 20px auto;
+
+    }
+/*Services*/
+    .services-item {
+        width: 50%;
+        padding-bottom: 0;
+    }
+
+    .services-item-border {
+        border-bottom: 0;
+    }
+
+    /*Reviews*/
+
+    .reviews {
+        padding: 0 60px;
+    }
+
+    .reviews-photo {
+        height: 150px;
+        width: 150px;
+    }
+
+    .reviews-item {
+        padding-left: 175px;
+    }
+
+    /*Clients*/
+    .clients {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .clients-item {
+        width: 100%;
+        padding-right: 0;
+    }
+
+   .clients-text:last-child {
+       margin-bottom: 0;
+   }
+
+   /*Footer*/
+    .footer-col-1 {
+        width: 100%;
+    }
+
+    .footer-col-2,
+    .footer-col-3 {
+        width: 50%;
+    }
+
+    /*Instagram*/
+    .instagram {
+        justify-content: flex-start;
+
+    }
+
+    .instagram-item {
+        width: auto;
+        border-right: 1px solid #fff;
+    }
+
+
+} /*end of media laptop*/
+
+/*tablet*/
+@media (max-width: 770px) {
+    /*Intro*/
+
+    .intro {
+        min-height: 650px;
+    }
+
+    /*Header*/
+    .header {
+        padding: 10px 0;
+    }
+
+
+  .nav {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      background-color: #eb8b8d;
+  }
+
+.nav-link{
+      display: block;
+    margin: 0;
+    padding: 8px 20px;
+  }
+
+  .nav-toggle {
+        display: block;
+  }
+
+    .slider-text {
+        display: none;
+    }
+    .slider-item.active:before {
+        width: 50%;
+    }
+    /*section*/
+    .section {
+        padding: 40px 0;
+    }
+
+    .section-devices {
+        padding-bottom: 0;
+    }
+
+    /*Card*/
+    .card {
+        justify-content: center;
+        margin-top: 50px;
+    }
+
+    .card-item {
+        width: 100%;
+        max-width: 410px; /*380+30px*/
+        margin-bottom: 30px;
+    }
+
+    .card-item:last-child {
+        margin-bottom: 0;
+    }
+
+    /*Services*/
+
+    .services {
+        justify-content: center;
+    }
+    .services-item {
+        width: 100%;
+        max-width: 400px;
+        padding-left: 55px;
+        padding-right: 0;
+    }
+    .services-icon {
+        left: 0;
+    }
+
+    /*wedo*/
+    .wedo-img {
+        display: none;
+    }
+
+    .wedo-item {
+        width: 100%;
+    }
+
+    /*Reviews*/
+    .reviews-photo {
+        position: static;
+        margin: 0 auto 20px;
+    }
+
+    .reviews-item {
+        padding-left: 0;
+    }
+
+    .reviews-text {
+        font-size: 16px;
+    }
+
+    .reviews-author {
+        font-size: 20px;
+    }
+
+    /*works*/
+    .works-col {
+        flex: none;
+        width: 50%;
+    }
+
+    .works {
+        flex-wrap: wrap;
+    }
+
+    /*Blog*/
+    .blog {
+        max-width: 380px; /*задаем ширину блока равной ширине картинки*/
+        margin: 0 auto;
+    }
+
+    .blog-item {
+        width: 100%;
+        margin-bottom: 30px;
+    }
+
+    .blog-item:last-child {
+        margin-bottom: 0;
+    }
+
+    /*Footer*/
+    .footer-col-1 {
+        width: 100%;
+    }
+
+    .footer-col-2,
+    .footer-col-3 {
+        width: 100%;
+    }
+
+
+} /*end of media tablet*/
+
+
+
+
+/*mobile*/
+@media (max-width: 575px) {
+    /*Intro*/
+
+    .intro {
+        min-height: 650px;
+    }
+
+    .intro-title {
+        font-size: 40px;
+    }
+
+    .intro-suptitle {
+        font-size: 22px;
+    }
+
+    /*section*/
+
+    .section-header {
+        margin-bottom: 50px;
+    }
+
+    .section-title {
+        font-size: 24px;
+    }
+
+    .section-suptitle {
+        font-size: 20px;
+    }
+
+    .section-title:after {
+        margin: 20px auto;
+    }
+
+    /*Stat*/
+
+    .stat-item {
+        width: 100%;
+        border-bottom: 1px solid #b5eae0;
+    }
+
+    .stat-item:last-child {
+        border-bottom: 0;
+    }
+
+    .stat-count {
+        font-size: 52px;
+    }
+
+    /*Devices*/
+
+    .devices {
+        max-width: 320px;
+    }
+
+    .devices-item-iphone {
+        width: 180px;
+        bottom: -80px;
+        right: -80px;
+    }
+
+    /*Reviews*/
+    .reviews {
+        padding: 0;
+    }
+
+    .reviews-btn {
+        top: 18%;
+    }
+
+    /*Logos*/
+    .logos {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .logos-item {
+        width: 50%;
+        margin-bottom: 20px;
+    }
+
+    .logos-img {
+        margin: 0 auto;
+    }
+
+    /*Works*/
+    .works {
+
+    }
+
+    .works-col {
+        width: 100%;
+    }
+
+    .works-item {
+        max-width: 410px;
+        margin: 0 auto;
+    }
+
+    /*Clients*/
+
+
+    .clients-photo {
+        position: static; /*делаем так, чтобы фото было наверху*/
+    }
+
+    .clients-item {
+        padding-left: 0;
+        text-align: center;
+    }
+
+    .clients-text:before {
+        margin: 15px auto;
+    }
+
+    /*Blogs*/
+    .blogs-img {
+        width: 80px;
+        height: 50px;
+    }
+
+    .blogs-title {
+        font-size: 10px;
+    }
+
+    /*subscribe*/
+    .subscribe {
+        flex-wrap:wrap;
+        max-width: none;
+    }
+
+    .subscribe-input {
+        width: 100%;
+        border-right: 1px solid #e7e7e7;
+        margin-bottom: 10px;
+    }
+
+    .subscribe-button {
+        width: 100%;
+    }
+
+
+} /*end of media mobile*/
+
